@@ -1,0 +1,18 @@
+    
+
+    - name: enable 80
+      firewalld:
+        zone: public
+        port: 80/tcp
+        permanent: true
+        state: enabled
+      become: yes
+    - name: Reload the Server Configuration
+      systemd:
+        name: firewalld
+        state: reloaded
+    - name: Copy the Index file to Apache directory
+      copy:
+        src: files/index.html
+        dest: /var/www/html/
+
